@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romantic Hub — Academic & Professional Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════════════ */
+:root {
+  --navy-900: #060E1C;
+  --navy-800: #0A1628;
+  --navy-700: #102040;
+  --navy-600: #1A3258;
+  --navy-500: #1E3A5F;
+  --navy-400: #2A4A72;
+
+  --gold-500: #D4A843;
+  --gold-400: #E8C567;
+  --gold-300: #F5E3A0;
+  --gold-700: #8C6D2A;
+  --gold-900: #3D2E10;
+
+  --white-100: #FFFFFF;
+  --white-200: #F0F4FF;
+  --white-400: #B8C5D9;
+  --white-600: #6B7E96;
+  --white-800: #3A4A5C;
+
+  --success: #2ECC8E;
+  --error:   #E84B4B;
+  --warning: #F5A623;
+  --info:    #4B9EE8;
+
+  --econ:   #2A6FDB;
+  --biz:    #1CA89A;
+  --acct:   #7B5EA7;
+  --tutor:  #E87B2A;
+  --career: #2AB8D4;
+  --lib:    #D44B4B;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-card: 0 2px 0 rgba(212,168,67,.12), 0 8px 32px rgba(0,0,0,.35);
+  --shadow-glow: 0 0 40px rgba(212,168,67,.15);
+
+  --transition: 0.22s cubic-bezier(.4,0,.2,1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--navy-800);
+  color: var(--white-200);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+input, textarea, select { font-family: inherit; outline: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAPHY
+═══════════════════════════════════════════════════════════ */
+.t-display { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem,5vw,4rem); font-weight: 800; line-height: 1.08; letter-spacing: -.03em; }
+.t-h1      { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 700; line-height: 1.12; }
+.t-h2      { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem,2.5vw,2rem); font-weight: 700; line-height: 1.2; }
+.t-h3      { font-family: 'Inter', sans-serif; font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+.t-body    { font-size: .975rem; font-weight: 400; line-height: 1.7; color: var(--white-400); }
+.t-small   { font-size: .825rem; font-weight: 400; color: var(--white-600); line-height: 1.5; }
+.t-label   { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-500); }
+.t-gold    { color: var(--gold-500); }
+.t-white   { color: var(--white-200); }
+
+/* ═══════════════════════════════════════════════════════════
+   LAYOUT UTILITIES
+═══════════════════════════════════════════════════════════ */
+.container  { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+.section    { padding: 96px 0; }
+.section-sm { padding: 64px 0; }
+.flex       { display: flex; }
+.flex-col   { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: 12px; }
+.gap-md { gap: 20px; }
+.gap-lg { gap: 32px; }
+.gap-xl { gap: 48px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+.text-center { text-align: center; }
+.hidden { display: none !important; }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENTS — CARDS
+═══════════════════════════════════════════════════════════ */
+.card {
+  background: var(--navy-700);
+  border: 1px solid var(--navy-500);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.card:hover { border-color: rgba(212,168,67,.35); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.card-gold { border-color: rgba(212,168,67,.3); }
+.card-sm { padding: 20px; border-radius: var(--radius-md); }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENTS — BUTTONS
+═══════════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 28px; border-radius: var(--radius-md);
+  font-size: .925rem; font-weight: 600; letter-spacing: .02em;
+  transition: all var(--transition); white-space: nowrap;
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-700), var(--gold-500), var(--gold-400));
+  color: var(--navy-800);
+}
+.btn-gold:hover { opacity: .88; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(212,168,67,.3); }
+.btn-outline {
+  background: transparent; color: var(--gold-500);
+  border: 1.5px solid var(--gold-500);
+}
+.btn-outline:hover { background: rgba(212,168,67,.08); }
+.btn-ghost { background: var(--navy-600); color: var(--white-200); border: 1px solid var(--navy-500); }
+.btn-ghost:hover { border-color: var(--gold-500); color: var(--gold-500); }
+.btn-sm { padding: 9px 18px; font-size: .825rem; }
+.btn-lg { padding: 16px 36px; font-size: 1rem; }
+.btn-full { width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENTS — BADGES / CHIPS
+═══════════════════════════════════════════════════════════ */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 12px; border-radius: 99px;
+  font-size: .72rem; font-weight: 600; letter-spacing: .06em;
+}
+.badge-gold   { background: rgba(212,168,67,.12); color: var(--gold-500); border: 1px solid rgba(212,168,67,.3); }
+.badge-success{ background: rgba(46,204,142,.1);  color: var(--success);  border: 1px solid rgba(46,204,142,.3); }
+.badge-info   { background: rgba(75,158,232,.1);  color: var(--info);     border: 1px solid rgba(75,158,232,.3); }
+.badge-warn   { background: rgba(245,166,35,.1);  color: var(--warning);  border: 1px solid rgba(245,166,35,.3); }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENTS — GOLD RULE
+═══════════════════════════════════════════════════════════ */
+.gold-rule {
+  width: 48px; height: 3px; border-radius: 99px;
+  background: linear-gradient(90deg, var(--gold-700), var(--gold-500), var(--gold-400));
+}
+.gold-rule-center { margin: 0 auto; }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENTS — SECTION HEADER
+═══════════════════════════════════════════════════════════ */
+.section-header { margin-bottom: 56px; }
+.section-header.centered { text-align: center; }
+.section-header.centered .gold-rule { margin: 16px auto 0; }
+.section-header .t-label { margin-bottom: 10px; }
+.section-header .t-h1  { margin-bottom: 12px; }
+.section-header .t-body { max-width: 560px; margin-top: 14px; }
+.section-header.centered .t-body { margin: 14px auto 0; }
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════════ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(10,22,40,.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--navy-500);
+  transition: background var(--transition);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px; padding: 0 24px; max-width: 1200px; margin: 0 auto;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+}
+.nav-logo-mark {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--gold-700), var(--gold-500), var(--gold-400));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px; color: var(--navy-800); letter-spacing: .5px;
+  flex-shrink: 0;
+}
+.nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+.nav-logo-sub  { font-size: .68rem; color: var(--gold-700); font-weight: 500; letter-spacing: .04em; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 4px; list-style: none;
+}
+.nav-links a {
+  padding: 8px 14px; border-radius: var(--radius-sm);
+  font-size: .875rem; font-weight: 500; color: var(--white-400);
+  transition: color var(--transition), background var(--transition);
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--gold-500); background: rgba(212,168,67,.08);
+}
+.nav-cta { display: flex; align-items: center; gap: 10px; }
+.nav-hamburger {
+  display: none; background: none; border: none;
+  color: var(--white-200); font-size: 1.4rem; padding: 8px;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: none; flex-direction: column; gap: 4px;
+  padding: 12px 24px 20px;
+  background: var(--navy-700);
+  border-top: 1px solid var(--navy-500);
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  padding: 12px 16px; border-radius: var(--radius-sm);
+  font-size: .925rem; font-weight: 500; color: var(--white-400);
+  transition: all var(--transition);
+}
+.mobile-menu a:hover { color: var(--gold-500); background: rgba(212,168,67,.08); }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGES — show/hide logic
+═══════════════════════════════════════════════════════════ */
+.page { display: none; padding-top: 68px; }
+.page.active { display: block; }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — HOME
+═══════════════════════════════════════════════════════════ */
+
+/* Hero */
+.hero {
+  min-height: calc(100vh - 68px);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  background: radial-gradient(ellipse 900px 600px at 70% 40%, rgba(26,50,88,.7) 0%, transparent 70%),
+              var(--navy-800);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(212,168,67,.025) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(212,168,67,.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.hero-glow {
+  position: absolute; top: 10%; right: 5%;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,168,67,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 2; max-width: 760px; }
+.hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.hero-eyebrow-line { width: 32px; height: 2px; background: var(--gold-500); }
+.hero-title { margin-bottom: 6px; }
+.hero-title em { font-style: italic; color: var(--gold-500); }
+.hero-subtitle { font-family: 'Playfair Display', serif; font-size: clamp(1.1rem,2vw,1.5rem); color: var(--white-400); margin-bottom: 20px; font-weight: 600; }
+.hero-desc { max-width: 560px; margin-bottom: 40px; font-size: 1.05rem; color: var(--white-400); line-height: 1.75; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 60px; }
+.hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+.hero-stat-value { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--gold-500); line-height: 1; }
+.hero-stat-label { font-size: .8rem; color: var(--white-600); margin-top: 4px; font-weight: 500; letter-spacing: .04em; }
+
+/* Modules grid on home */
+.modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 20px; }
+.module-card {
+  background: var(--navy-700);
+  border: 1px solid var(--navy-500);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative; overflow: hidden;
+}
+.module-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--mod-color, var(--gold-500));
+  opacity: 0; transition: opacity var(--transition);
+}
+.module-card:hover { border-color: var(--mod-color, var(--gold-500)); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.3); }
+.module-card:hover::before { opacity: .06; }
+.module-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: 16px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.module-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+.module-card p  { font-size: .82rem; color: var(--white-600); line-height: 1.5; margin-bottom: 14px; }
+.module-count   { font-size: .75rem; color: var(--mod-color, var(--gold-500)); font-weight: 600; }
+
+/* Testimonials */
+.testimonial-card { position: relative; }
+.testimonial-card::before { content: '"'; position: absolute; top: -10px; left: 20px; font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--gold-500); opacity: .15; line-height: 1; }
+.testimonial-text { font-size: .95rem; line-height: 1.8; color: var(--white-400); margin-bottom: 20px; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-700), var(--gold-500));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .85rem; color: var(--navy-800); flex-shrink: 0;
+}
+.testimonial-name { font-weight: 600; font-size: .9rem; }
+.testimonial-role { font-size: .78rem; color: var(--white-600); }
+.stars { color: var(--gold-500); font-size: .85rem; margin-bottom: 8px; letter-spacing: 2px; }
+
+/* CTA Banner */
+.cta-banner {
+  background: linear-gradient(135deg, var(--navy-700) 0%, var(--navy-600) 100%);
+  border: 1px solid rgba(212,168,67,.2);
+  border-radius: var(--radius-xl);
+  padding: 64px 48px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-banner::before {
+  content: ''; position: absolute; top: -100px; right: -100px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,168,67,.08) 0%, transparent 70%);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — ABOUT
+═══════════════════════════════════════════════════════════ */
+.about-hero { padding: 80px 0 60px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
+.about-avatar-wrap {
+  position: relative;
+}
+.about-avatar {
+  width: 100%; aspect-ratio: 1;
+  max-width: 360px;
+  background: linear-gradient(135deg, var(--navy-700), var(--navy-600));
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(212,168,67,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem; font-weight: 800;
+  color: var(--gold-500);
+  position: relative; overflow: hidden;
+}
+.about-avatar::before {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 50%; background: linear-gradient(0deg, rgba(212,168,67,.06), transparent);
+}
+.about-badge-float {
+  position: absolute; bottom: -16px; right: -16px;
+  background: var(--navy-700); border: 1px solid rgba(212,168,67,.4);
+  border-radius: var(--radius-md); padding: 14px 18px;
+  box-shadow: var(--shadow-card);
+}
+.about-badge-float .val { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 800; color: var(--gold-500); }
+.about-badge-float .lbl { font-size: .72rem; color: var(--white-600); font-weight: 500; margin-top: 2px; }
+
+.timeline { display: flex; flex-direction: column; gap: 0; margin-top: 32px; }
+.timeline-item { display: flex; gap: 20px; }
+.timeline-item:not(:last-child) .timeline-line { flex: 1; }
+.timeline-dot-col { display: flex; flex-direction: column; align-items: center; }
+.timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold-500); border: 2px solid var(--navy-800); flex-shrink: 0; margin-top: 4px; }
+.timeline-line { width: 2px; background: var(--navy-500); margin: 4px 0; flex: 1; min-height: 24px; }
+.timeline-body { padding-bottom: 28px; }
+.timeline-year { font-size: .72rem; font-weight: 700; color: var(--gold-700); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+.timeline-title { font-weight: 600; font-size: .95rem; margin-bottom: 4px; }
+.timeline-desc { font-size: .83rem; color: var(--white-600); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — SERVICES
+═══════════════════════════════════════════════════════════ */
+.service-card {
+  background: var(--navy-700);
+  border: 1px solid var(--navy-500);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: all var(--transition);
+}
+.service-card:hover { border-color: rgba(212,168,67,.35); box-shadow: var(--shadow-card); }
+.service-icon { font-size: 2rem; margin-bottom: 20px; }
+.service-price { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--gold-500); margin: 16px 0 4px; }
+.service-period { font-size: .8rem; color: var(--white-600); }
+.service-features { list-style: none; margin: 20px 0 28px; display: flex; flex-direction: column; gap: 10px; }
+.service-features li { display: flex; align-items: flex-start; gap: 10px; font-size: .875rem; color: var(--white-400); }
+.service-features li::before { content: '✓'; color: var(--success); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.service-card.featured { border-color: rgba(212,168,67,.4); background: linear-gradient(160deg, var(--navy-700), rgba(26,50,88,.8)); }
+.featured-tag { background: var(--gold-500); color: var(--navy-800); font-size: .72rem; font-weight: 700; padding: 4px 10px; border-radius: 99px; letter-spacing: .06em; margin-bottom: 8px; display: inline-block; }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — COURSES
+═══════════════════════════════════════════════════════════ */
+.course-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+.filter-btn {
+  padding: 8px 18px; border-radius: 99px; font-size: .825rem; font-weight: 600;
+  background: var(--navy-700); color: var(--white-400); border: 1px solid var(--navy-500);
+  transition: all var(--transition); cursor: pointer;
+}
+.filter-btn:hover, .filter-btn.active { background: rgba(212,168,67,.12); color: var(--gold-500); border-color: var(--gold-500); }
+.course-card {
+  background: var(--navy-700); border: 1px solid var(--navy-500);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: all var(--transition);
+}
+.course-card:hover { border-color: rgba(212,168,67,.3); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.course-thumb {
+  height: 160px; display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; position: relative;
+  background: linear-gradient(135deg, var(--navy-600), var(--navy-500));
+}
+.course-body { padding: 22px; }
+.course-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.course-title { font-weight: 700; font-size: 1rem; margin-bottom: 8px; line-height: 1.4; }
+.course-instructor { font-size: .82rem; color: var(--white-600); margin-bottom: 14px; }
+.course-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--navy-500); padding-top: 14px; margin-top: 14px; }
+.course-rating { display: flex; align-items: center; gap: 6px; font-size: .82rem; }
+.course-free { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--success); }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — TUTORING / BOOKING
+═══════════════════════════════════════════════════════════ */
+.tutor-card {
+  background: var(--navy-700); border: 1px solid var(--navy-500);
+  border-radius: var(--radius-lg); padding: 28px;
+  transition: all var(--transition);
+}
+.tutor-card:hover { border-color: rgba(212,168,67,.3); box-shadow: var(--shadow-card); }
+.tutor-header { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
+.tutor-avatar {
+  width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--gold-700), var(--gold-500));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1.1rem; color: var(--navy-800);
+}
+.tutor-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 3px; }
+.tutor-title { font-size: .82rem; color: var(--white-600); margin-bottom: 6px; }
+.tutor-subjects { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.tutor-subject-tag {
+  padding: 4px 10px; border-radius: 99px;
+  font-size: .72rem; font-weight: 600;
+  background: var(--navy-600); color: var(--white-400);
+  border: 1px solid var(--navy-500);
+}
+.tutor-stats { display: flex; gap: 20px; margin-bottom: 20px; }
+.tutor-stat-val { font-weight: 700; color: var(--gold-500); font-size: .95rem; }
+.tutor-stat-lbl { font-size: .72rem; color: var(--white-600); margin-top: 2px; }
+.avail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); display: inline-block; margin-right: 6px; }
+
+/* Booking form */
+.booking-form { background: var(--navy-700); border: 1px solid rgba(212,168,67,.2); border-radius: var(--radius-xl); padding: 40px; }
+.form-group { margin-bottom: 22px; }
+.form-label { display: block; font-size: .825rem; font-weight: 600; color: var(--white-400); margin-bottom: 8px; letter-spacing: .03em; }
+.form-input {
+  width: 100%; padding: 13px 16px;
+  background: var(--navy-600); border: 1px solid var(--navy-500);
+  border-radius: var(--radius-md); color: var(--white-200);
+  font-size: .925rem; transition: border-color var(--transition);
+}
+.form-input:focus { border-color: var(--gold-500); }
+.form-input::placeholder { color: var(--white-800); }
+.form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7E96' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+.form-textarea { resize: vertical; min-height: 110px; }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — LIBRARY
+═══════════════════════════════════════════════════════════ */
+.resource-card {
+  background: var(--navy-700); border: 1px solid var(--navy-500);
+  border-radius: var(--radius-md); padding: 20px;
+  display: flex; gap: 16px; align-items: center;
+  transition: all var(--transition);
+}
+.resource-card:hover { border-color: rgba(212,168,67,.3); transform: translateX(3px); }
+.resource-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; flex-shrink: 0;
+}
+.resource-title { font-weight: 600; font-size: .95rem; margin-bottom: 4px; }
+.resource-meta  { font-size: .78rem; color: var(--white-600); margin-bottom: 8px; }
+.resource-actions { display: flex; gap: 8px; margin-left: auto; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — BLOG / COMMUNITY
+═══════════════════════════════════════════════════════════ */
+.blog-card {
+  background: var(--navy-700); border: 1px solid var(--navy-500);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: all var(--transition);
+}
+.blog-card:hover { border-color: rgba(212,168,67,.3); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.blog-thumb { height: 180px; background: linear-gradient(135deg, var(--navy-600), var(--navy-500)); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+.blog-body { padding: 24px; }
+.blog-tags { display: flex; gap: 6px; margin-bottom: 12px; }
+.blog-title { font-weight: 700; font-size: 1.05rem; line-height: 1.4; margin-bottom: 10px; }
+.blog-excerpt { font-size: .875rem; color: var(--white-400); line-height: 1.65; margin-bottom: 16px; }
+.blog-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--navy-500); padding-top: 14px; }
+.blog-author { display: flex; align-items: center; gap: 8px; }
+.blog-author-av { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-700), var(--gold-500)); display: flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 700; color: var(--navy-800); }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — CAREER
+═══════════════════════════════════════════════════════════ */
+.job-card {
+  background: var(--navy-700); border: 1px solid var(--navy-500);
+  border-radius: var(--radius-lg); padding: 24px;
+  transition: all var(--transition);
+}
+.job-card:hover { border-color: rgba(212,168,67,.3); box-shadow: var(--shadow-card); }
+.job-card.hot { border-color: rgba(232,123,42,.3); }
+.job-header { display: flex; gap: 14px; margin-bottom: 14px; }
+.job-logo {
+  width: 48px; height: 48px; border-radius: var(--radius-md); flex-shrink: 0;
+  background: var(--navy-600); border: 1px solid var(--navy-500);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: .85rem; color: var(--gold-500);
+}
+.job-title { font-weight: 700; font-size: 1rem; margin-bottom: 3px; }
+.job-company { font-size: .82rem; color: var(--white-600); }
+.job-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.job-deadline { font-size: .78rem; color: var(--error); font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE — CONTACT
+═══════════════════════════════════════════════════════════ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; }
+.contact-info-card { background: var(--navy-700); border: 1px solid rgba(212,168,67,.2); border-radius: var(--radius-xl); padding: 36px; }
+.contact-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px; }
+.contact-item-icon {
+  width: 42px; height: 42px; border-radius: var(--radius-md); flex-shrink: 0;
+  background: rgba(212,168,67,.1); border: 1px solid rgba(212,168,67,.2);
+  display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+}
+.contact-item-label { font-size: .72rem; font-weight: 700; color: var(--gold-700); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+.contact-item-val { font-weight: 600; font-size: .95rem; }
+.contact-item-sub { font-size: .8rem; color: var(--white-600); margin-top: 2px; }
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN PAGE
+═══════════════════════════════════════════════════════════ */
+.admin-login { max-width: 420px; margin: 100px auto; padding: 0 24px; }
+.admin-login-card { background: var(--navy-700); border: 1px solid rgba(212,168,67,.25); border-radius: var(--radius-xl); padding: 44px 36px; }
+.admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 20px; margin-bottom: 40px; }
+.admin-kpi { background: var(--navy-700); border: 1px solid var(--navy-500); border-radius: var(--radius-lg); padding: 24px; }
+.admin-kpi-val { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+.admin-kpi-label { font-size: .8rem; color: var(--white-600); font-weight: 500; }
+.admin-kpi-trend { font-size: .75rem; color: var(--success); font-weight: 600; margin-top: 4px; }
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════ */
+footer {
+  background: var(--navy-900); border-top: 1px solid var(--navy-500);
+  padding: 64px 0 32px;
+}
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+.footer-brand p { font-size: .875rem; color: var(--white-600); line-height: 1.7; margin-top: 14px; max-width: 280px; }
+.footer-col h4 { font-size: .875rem; font-weight: 700; margin-bottom: 18px; color: var(--white-200); }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul a { font-size: .85rem; color: var(--white-600); transition: color var(--transition); }
+.footer-col ul a:hover { color: var(--gold-500); }
+.footer-bottom { border-top: 1px solid var(--navy-500); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-bottom p { font-size: .8rem; color: var(--white-800); }
+
+/* ═══════════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════════ */
+.toast {
+  position: fixed; bottom: 32px; right: 32px; z-index: 9999;
+  background: var(--navy-700); border: 1px solid rgba(46,204,142,.4);
+  border-radius: var(--radius-md); padding: 16px 22px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.4);
+  transform: translateY(100px); opacity: 0;
+  transition: all 0.4s cubic-bezier(.4,0,.2,1);
+  max-width: 380px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast-icon { font-size: 1.2rem; }
+.toast-text { font-size: .9rem; font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════════════════════════════════ */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2,1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-avatar { max-width: 280px; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .section { padding: 64px 0; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: block; }
+  .hero-stats { gap: 24px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .booking-form, .cta-banner { padding: 28px 24px; }
+  .resource-card { flex-wrap: wrap; }
+  .resource-actions { margin-left: 0; }
+}
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; }
+  .btn-lg { padding: 14px 24px; }
+  .modules-grid { grid-template-columns: 1fr 1fr; }
+  .admin-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      <div class="nav-logo-mark">RH</div>
+      <div>
+        <div class="nav-logo-text">Romantic Hub</div>
+        <div class="nav-logo-sub">Academic &amp; Professional</div>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')"    id="nav-home">Home</a></li>
+      <li><a href="#" onclick="showPage('about')"   id="nav-about">About</a></li>
+      <li><a href="#" onclick="showPage('services')"id="nav-services">Services</a></li>
+      <li><a href="#" onclick="showPage('courses')" id="nav-courses">Courses</a></li>
+      <li><a href="#" onclick="showPage('tutoring')"id="nav-tutoring">Tutoring</a></li>
+      <li><a href="#" onclick="showPage('library')" id="nav-library">Library</a></li>
+      <li><a href="#" onclick="showPage('blog')"    id="nav-blog">Blog</a></li>
+      <li><a href="#" onclick="showPage('career')"  id="nav-career">Career</a></li>
+      <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <button class="btn btn-outline btn-sm" onclick="showPage('admin')">Admin</button>
+      <button class="btn btn-gold btn-sm" onclick="showPage('tutoring')">Book a Session</button>
+    </div>
+
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="showPage('home');toggleMenu()">Home</a>
+    <a href="#" onclick="showPage('about');toggleMenu()">About</a>
+    <a href="#" onclick="showPage('services');toggleMenu()">Services</a>
+    <a href="#" onclick="showPage('courses');toggleMenu()">Courses</a>
+    <a href="#" onclick="showPage('tutoring');toggleMenu()">Tutoring</a>
+    <a href="#" onclick="showPage('library');toggleMenu()">Library</a>
+    <a href="#" onclick="showPage('blog');toggleMenu()">Blog</a>
+    <a href="#" onclick="showPage('career');toggleMenu()">Career</a>
+    <a href="#" onclick="showPage('contact');toggleMenu()">Contact</a>
+    <a href="#" onclick="showPage('admin');toggleMenu()">Admin Login</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-line"></div>
+          <span class="t-label">Lusaka, Zambia · Est. 2024</span>
+        </div>
+        <h1 class="t-display hero-title">
+          Your Academic &amp;<br><em>Professional Edge</em>
+        </h1>
+        <p class="hero-subtitle">Learn · Get Tutored · Build Your Career</p>
+        <p class="hero-desc">
+          Romantic Hub is Zambia's dedicated academic and professional platform for economics, business, and accounting students — built by a NIPA graduate who understands exactly what you need.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-gold btn-lg" onclick="showPage('library')">📥 Download Free Resources</button>
+          <button class="btn btn-outline btn-lg" onclick="showPage('tutoring')">📅 Book a Tutor</button>
+        </div>
+        <div class="hero-actions" style="margin-top:-24px">
+          <button class="btn btn-ghost btn-lg" onclick="showPage('courses')">🎓 Enrol in a Course</button>
+          <button class="btn btn-ghost btn-lg" onclick="showPage('contact')">💼 Hire Me for Consulting</button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-value">500+</div>
+            <div class="hero-stat-label">Students Helped</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">120+</div>
+            <div class="hero-stat-label">Tutoring Sessions</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">48</div>
+            <div class="hero-stat-label">Free Courses</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">4.9★</div>
+            <div class="hero-stat-label">Average Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learning Modules -->
+  <section class="section" style="background: var(--navy-900);">
+    <div class="container">
+      <div class="section-header centered fade-up">
+        <div class="t-label">Learning Centers</div>
+        <h2 class="t-h1">Everything You Need to Succeed</h2>
+        <div class="gold-rule gold-rule-center"></div>
+        <p class="t-body">Six dedicated learning centers covering every subject you need — built specifically for Zambian students and professionals.</p>
+      </div>
+      <div class="modules-grid fade-up">
+        <div class="module-card" style="--mod-color:#2A6FDB" onclick="showPage('courses')">
+          <div class="module-icon">📊</div>
+          <h3>Economics</h3>
+          <p>Macro, Micro, ARDL, ECM, STATA and applied econometrics</p>
+          <div class="module-count">12 courses · Free</div>
+        </div>
+        <div class="module-card" style="--mod-color:#1CA89A" onclick="showPage('courses')">
+          <div class="module-icon">💼</div>
+          <h3>Business Admin</h3>
+          <p>Corporate finance, strategy, WACC, NPV and business planning</p>
+          <div class="module-count">8 courses · Free</div>
+        </div>
+        <div class="module-card" style="--mod-color:#7B5EA7" onclick="showPage('courses')">
+          <div class="module-icon">🧮</div>
+          <h3>Accounting</h3>
+          <p>Financial, management, cost accounting and Zambian taxation</p>
+          <div class="module-count">10 courses · Free</div>
+        </div>
+        <div class="module-card" style="--mod-color:#E87B2A" onclick="showPage('tutoring')">
+          <div class="module-icon">🎓</div>
+          <h3>1-on-1 Tutoring</h3>
+          <p>Live sessions via Google Meet with an expert tutor</p>
+          <div class="module-count">Book from K0</div>
+        </div>
+        <div class="module-card" style="--mod-color:#2AB8D4" onclick="showPage('career')">
+          <div class="module-icon">🚀</div>
+          <h3>Career Center</h3>
+          <p>Jobs, internships, CV builder and career roadmaps in Zambia</p>
+          <div class="module-count">Live job board</div>
+        </div>
+        <div class="module-card" style="--mod-color:#D44B4B" onclick="showPage('library')">
+          <div class="module-icon">📖</div>
+          <h3>Resource Library</h3>
+          <p>Download PDFs, guides, quizzes and teaching materials</p>
+          <div class="module-count">142 free resources</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="t-label">Why Romantic Hub</div>
+        <h2 class="t-h1">Built by a Zambian Student,<br>for Zambian Students</h2>
+        <div class="gold-rule"></div>
+      </div>
+      <div class="grid-3 fade-up">
+        <div class="card card-gold">
+          <div style="font-size:2rem;margin-bottom:16px">🇿🇲</div>
+          <h3 class="t-h3" style="margin-bottom:10px">100% Zambia-Relevant</h3>
+          <p class="t-body">Every course, case study, and example uses real Zambian data — ZRA tax law, BOZ policy, Zambian SMEs. No generic content.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;margin-bottom:16px">💰</div>
+          <h3 class="t-h3" style="margin-bottom:10px">Truly Affordable</h3>
+          <p class="t-body">Most resources are completely free. Tutoring starts from K150/hour — a fraction of what private tutors charge in Lusaka.</p>
+        </div>
+        <div class="card">
+          <div style="font-size:2rem;margin-bottom:16px">⚡</div>
+          <h3 class="t-h3" style="margin-bottom:10px">Expert-Level Quality</h3>
+          <p class="t-body">Led by Romance Chiingu — BSc Economics (NIPA), ARDL specialist, 120+ tutoring sessions, and founder of Clearview Business Solutions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section" style="background: var(--navy-900);">
+    <div class="container">
+      <div class="section-header centered fade-up">
+        <div class="t-label">What Students Say</div>
+        <h2 class="t-h1">Real Results from Real Students</h2>
+        <div class="gold-rule gold-rule-center"></div>
+      </div>
+      <div class="grid-3 fade-up">
+        <div class="card testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">Romance helped me restructure my entire SME financing thesis. His ARDL walkthrough was clearer than anything I found online. Passed my defence with distinction!</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">PB</div>
+            <div>
+              <div class="testimonial-name">Precious K. Banda</div>
+              <div class="testimonial-role">MSc Student, NIPA</div>
+            </div>
+          </div>
+        </div>
+        <div class="card testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">The STATA session before my defence was exactly what I needed. He walked me through every diagnostic test step by step. Could not have done it without this platform.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RK</div>
+            <div>
+              <div class="testimonial-name">Romano Kalinda</div>
+              <div class="testimonial-role">Economics Student, NIPA</div>
+            </div>
+          </div>
+        </div>
+        <div class="card testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">I downloaded the MRM 802 guide and it changed everything. Finally understood quantitative research methods properly. The PDF is better than our lecture notes.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SC</div>
+            <div>
+              <div class="testimonial-name">Salome M. Chilufya</div>
+              <div class="testimonial-role">Postgrad Student</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Primary Actions Section -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="section-header centered fade-up" style="margin-bottom:40px">
+        <div class="t-label">What Would You Like to Do?</div>
+        <h2 class="t-h1">Start Here</h2>
+        <div class="gold-rule gold-rule-center"></div>
+        <p class="t-body">Four ways Romantic Hub can help you today — pick what matters most to you right now.</p>
+      </div>
+      <div class="grid-2 fade-up" style="gap:20px">
+
+        <!-- Action 1: Download Resources -->
+        <div class="cta-banner" style="text-align:left;padding:36px 36px 36px;background:linear-gradient(135deg,var(--navy-700),rgba(212,75,75,.08));border-color:rgba(212,75,75,.25)">
+          <div style="font-size:2.6rem;margin-bottom:14px">📥</div>
+          <div class="t-label" style="color:var(--lib);margin-bottom:8px">Most Popular</div>
+          <h3 class="t-h2" style="margin-bottom:10px">Download Free Study Materials</h3>
+          <p class="t-body" style="margin-bottom:24px">142 free PDFs, guides, quiz packs and teaching materials — no sign-up needed. ARDL guides, MRM 802, statistics, accounting and more.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+            <span class="badge badge-success">✓ 142 Resources</span>
+            <span class="badge badge-success">✓ No Sign-up</span>
+            <span class="badge badge-success">✓ 100% Free</span>
+          </div>
+          <button class="btn btn-gold btn-lg" onclick="showPage('library')">📥 Browse the Library</button>
+        </div>
+
+        <!-- Action 2: Book a Tutor -->
+        <div class="cta-banner" style="text-align:left;padding:36px;background:linear-gradient(135deg,var(--navy-700),rgba(232,123,42,.08));border-color:rgba(232,123,42,.25)">
+          <div style="font-size:2.6rem;margin-bottom:14px">📅</div>
+          <div class="t-label" style="color:var(--tutor);margin-bottom:8px">1-on-1 Guidance</div>
+          <h3 class="t-h2" style="margin-bottom:10px">Book a Tutoring Session</h3>
+          <p class="t-body" style="margin-bottom:24px">Live personalised sessions via Google Meet with an expert tutor. Economics, Statistics, Research Methods, Accounting, STATA and more. From K150/hr.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+            <span class="badge badge-warn">✓ From K150/hr</span>
+            <span class="badge badge-warn">✓ Via Google Meet</span>
+            <span class="badge badge-warn">✓ 4.9★ Rating</span>
+          </div>
+          <button class="btn btn-gold btn-lg" onclick="showPage('tutoring')">📅 Book a Session</button>
+        </div>
+
+        <!-- Action 3: Enrol in a Course -->
+        <div class="cta-banner" style="text-align:left;padding:36px;background:linear-gradient(135deg,var(--navy-700),rgba(42,111,219,.08));border-color:rgba(42,111,219,.25)">
+          <div style="font-size:2.6rem;margin-bottom:14px">🎓</div>
+          <div class="t-label" style="color:var(--econ);margin-bottom:8px">Self-Paced Learning</div>
+          <h3 class="t-h2" style="margin-bottom:10px">Enrol in a Free Course</h3>
+          <p class="t-body" style="margin-bottom:24px">48 structured courses across Economics, Business Administration, Accounting, Statistics and Research Methods. All free. All built for Zambian students.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+            <span class="badge badge-info">✓ 48 Courses</span>
+            <span class="badge badge-info">✓ All Subjects</span>
+            <span class="badge badge-info">✓ All Free</span>
+          </div>
+          <button class="btn btn-gold btn-lg" onclick="showPage('courses')">🎓 Browse Courses</button>
+        </div>
+
+        <!-- Action 4: Hire for Consulting -->
+        <div class="cta-banner" style="text-align:left;padding:36px;background:linear-gradient(135deg,var(--navy-700),rgba(28,168,154,.08));border-color:rgba(28,168,154,.25)">
+          <div style="font-size:2.6rem;margin-bottom:14px">💼</div>
+          <div class="t-label" style="color:var(--biz);margin-bottom:8px">Professional Services</div>
+          <h3 class="t-h2" style="margin-bottom:10px">Hire Me for Consulting Work</h3>
+          <p class="t-body" style="margin-bottom:24px">Thesis support, data analysis, SME business diagnostics, CDF proposal writing, Power BI dashboards and financial modelling for Zambian businesses.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+            <span class="badge badge-success">✓ STATA & SPSS</span>
+            <span class="badge badge-success">✓ Fast Turnaround</span>
+            <span class="badge badge-success">✓ ZMW Pricing</span>
+          </div>
+          <button class="btn btn-gold btn-lg" onclick="showPage('contact')">💼 Get a Quote</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="margin-bottom:0">
+            <div class="nav-logo-mark">RH</div>
+            <div><div class="nav-logo-text">Romantic Hub</div><div class="nav-logo-sub">Academic &amp; Professional</div></div>
+          </div>
+          <p>Zambia's dedicated academic and professional platform for students, tutors, and young professionals. Built in Lusaka, for Lusaka.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('library')">📥 Download Resources</a></li>
+            <li><a href="#" onclick="showPage('tutoring')">📅 Book a Tutor</a></li>
+            <li><a href="#" onclick="showPage('courses')">🎓 Enrol in a Course</a></li>
+            <li><a href="#" onclick="showPage('contact')">💼 Hire for Consulting</a></li>
+            <li><a href="#" onclick="showPage('career')">Career Center</a></li>
+            <li><a href="#" onclick="showPage('blog')">Community Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Subjects</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('courses')">Economics</a></li>
+            <li><a href="#" onclick="showPage('courses')">Business Admin</a></li>
+            <li><a href="#" onclick="showPage('courses')">Accounting</a></li>
+            <li><a href="#" onclick="showPage('courses')">Statistics</a></li>
+            <li><a href="#" onclick="showPage('courses')">Research Methods</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="#">romance@clearviewbiz.co.zm</a></li>
+            <li><a href="#">+260 97X XXX XXX</a></li>
+            <li><a href="#">Lusaka, Zambia</a></li>
+            <li><a href="#" onclick="showPage('about')">About Romance</a></li>
+            <li><a href="#" onclick="showPage('contact')">Send a Message</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Romantic Hub · Clearview Business Solutions. All rights reserved.</p>
+        <p>Built with ❤️ in Lusaka, Zambia</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="t-label">The Person Behind the Platform</div>
+        <h1 class="t-h1">About Romance Chiingu</h1>
+        <div class="gold-rule"></div>
+      </div>
+      <div class="about-grid fade-up">
+        <div class="about-avatar-wrap">
+          <div class="about-avatar">RC</div>
+          <div class="about-badge-float">
+            <div class="val">4.9★</div>
+            <div class="lbl">Tutor Rating</div>
+          </div>
+        </div>
+        <div>
+          <span class="badge badge-gold" style="margin-bottom:16px">BSc Economics · NIPA 2026</span>
+          <h2 class="t-h1" style="margin-bottom:16px">Economist. Tutor.<br>Data Consultant. Founder.</h2>
+          <p class="t-body" style="margin-bottom:16px">
+            I am Romance Chiingu — a 22-year-old Economics graduand at the National Institute of Public Administration (NIPA) in Lusaka, Zambia, graduating September 2026.
+          </p>
+          <p class="t-body" style="margin-bottom:16px">
+            I founded Romantic Hub because I experienced firsthand how difficult it is to find quality, affordable, and Zambia-relevant academic support. Most online resources are built for Western students and use examples that do not resonate with what we study here.
+          </p>
+          <p class="t-body" style="margin-bottom:32px">
+            Through Clearview Business Solutions, I also provide data analysis and SME consulting to businesses across Zambia — applying the same econometric tools I teach to real-world business problems.
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn btn-gold" onclick="showPage('tutoring')">Book a Session</button>
+            <button class="btn btn-outline" onclick="showPage('contact')">Get in Touch</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div style="margin-top:80px" class="fade-up">
+        <div class="t-label" style="margin-bottom:8px">My Journey</div>
+        <h2 class="t-h2" style="margin-bottom:32px">Education &amp; Experience</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot-col"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+            <div class="timeline-body"><div class="timeline-year">2022 – 2026</div><div class="timeline-title">BSc Economics — National Institute of Public Administration (NIPA)</div><div class="timeline-desc">Studying macroeconomics, microeconomics, econometrics and quantitative research methods. Thesis: Government Borrowing and Private Investment in Zambia (1990–2020) using ARDL bounds testing and ECM.</div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot-col"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+            <div class="timeline-body"><div class="timeline-year">2023 – Present</div><div class="timeline-title">Founder — Clearview Business Solutions</div><div class="timeline-desc">Data analysis and SME consulting practice serving businesses across Zambia. Specialising in diagnostic analysis, financial modelling, and business strategy for small and medium enterprises.</div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot-col"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+            <div class="timeline-body"><div class="timeline-year">2023 – Present</div><div class="timeline-title">Academic Tutor — Statistics, Economics & Research Methods</div><div class="timeline-desc">Delivering 1-on-1 tutoring sessions via Google Meet for undergraduate and postgraduate students at NIPA and other Zambian institutions. 120+ sessions, 4.9★ rating.</div></div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot-col"><div class="timeline-dot"></div></div>
+            <div class="timeline-body"><div class="timeline-year">2024 – Present</div><div class="timeline-title">Coordinator — American Corner, NIPA</div><div class="timeline-desc">Managing the US Embassy-affiliated programme at NIPA, facilitating professional development workshops and student engagement activities.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div style="margin-top:64px" class="fade-up">
+        <div class="t-label" style="margin-bottom:8px">Expertise</div>
+        <h2 class="t-h2" style="margin-bottom:32px">Core Skills</h2>
+        <div class="grid-4">
+          <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:8px">📈</div><div class="t-h3" style="font-size:.9rem">ARDL & ECM</div><div class="t-small">Bounds testing & error correction</div></div>
+          <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:8px">💻</div><div class="t-h3" style="font-size:.9rem">STATA & SPSS</div><div class="t-small">Econometric software</div></div>
+          <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:8px">📊</div><div class="t-h3" style="font-size:.9rem">Data Analysis</div><div class="t-small">Regression, correlation, chi-square</div></div>
+          <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:8px">📝</div><div class="t-h3" style="font-size:.9rem">Thesis Writing</div><div class="t-small">Proposals, chapters & defence</div></div>
+          <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:8px">🏢</div><div class="t-h3" style="font-size:.9rem">SME Consulting</div><div class="t-small">Business diagnostics & strategy</div></div>
+          <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:8px">📉</div><div class="t-h3" style="font-size:.9rem">Power BI</div><div class="t-small">Dashboards & data visualisation</div></div>
+          <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:8px">💰</div><div class="t-h3" style="font-size:.9rem">Corporate Finance</div><div class="t-small">WACC, NPV, capital structure</div></div>
+          <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:8px">🎓</div><div class="t-h3" style="font-size:.9rem">Teaching</div><div class="t-small">Undergraduate & postgraduate</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: SERVICES
+══════════════════════════════════════════════════ -->
+<div id="page-services" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="section-header centered fade-up">
+        <div class="t-label">What I Offer</div>
+        <h1 class="t-h1">Services &amp; Pricing</h1>
+        <div class="gold-rule gold-rule-center"></div>
+        <p class="t-body">All services are delivered professionally — remotely via Google Meet or in person in Lusaka. Payment in ZMW or arrangement basis.</p>
+      </div>
+
+      <div class="grid-3 fade-up">
+        <!-- Tutoring -->
+        <div class="service-card">
+          <div class="service-icon">🎓</div>
+          <h3 class="t-h3">Academic Tutoring</h3>
+          <p class="t-small" style="margin-top:8px">1-on-1 live sessions via Google Meet covering Economics, Statistics, Research Methods, Business, and Accounting.</p>
+          <div class="service-price">K150</div>
+          <div class="service-period">per hour · minimum 1 hour</div>
+          <ul class="service-features">
+            <li>Live session via Google Meet</li>
+            <li>Custom teaching materials provided</li>
+            <li>Session notes sent after each class</li>
+            <li>Flexible scheduling — 7 days a week</li>
+            <li>Undergraduate &amp; postgraduate levels</li>
+          </ul>
+          <button class="btn btn-gold btn-full" onclick="showPage('tutoring')">Book a Session</button>
+        </div>
+
+        <!-- Thesis Support -->
+        <div class="service-card featured">
+          <div class="featured-tag">⭐ Most Popular</div>
+          <div class="service-icon">📋</div>
+          <h3 class="t-h3">Thesis &amp; Research Support</h3>
+          <p class="t-small" style="margin-top:8px">End-to-end support for your undergraduate or postgraduate research — from proposal to final defence.</p>
+          <div class="service-price">K500+</div>
+          <div class="service-period">full package · negotiable</div>
+          <ul class="service-features">
+            <li>Research proposal writing &amp; review</li>
+            <li>Complete chapter development</li>
+            <li>ARDL / regression analysis in STATA</li>
+            <li>Methodology chapter structuring</li>
+            <li>Defence presentation &amp; coaching</li>
+            <li>Harvard referencing &amp; formatting</li>
+          </ul>
+          <button class="btn btn-gold btn-full" onclick="showPage('contact')">Get a Quote</button>
+        </div>
+
+        <!-- Consulting -->
+        <div class="service-card">
+          <div class="service-icon">💼</div>
+          <h3 class="t-h3">SME Consulting</h3>
+          <p class="t-small" style="margin-top:8px">Data-driven business diagnostics, financial analysis, and strategic recommendations for Zambian SMEs.</p>
+          <div class="service-price">K800+</div>
+          <div class="service-period">per project · negotiable</div>
+          <ul class="service-features">
+            <li>Business diagnostic report</li>
+            <li>Financial performance analysis</li>
+            <li>CDF proposal writing</li>
+            <li>Business plan development</li>
+            <li>Market research &amp; strategy</li>
+          </ul>
+          <button class="btn btn-gold btn-full" onclick="showPage('contact')">Discuss Project</button>
+        </div>
+      </div>
+
+      <!-- Additional services row -->
+      <div class="grid-3 fade-up" style="margin-top:24px">
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <h3 class="t-h3">Data Analysis</h3>
+          <p class="t-small" style="margin-top:8px;margin-bottom:16px">STATA, SPSS, or Excel analysis for your dataset — regression, hypothesis testing, chi-square, correlation.</p>
+          <div class="service-price">K300+</div>
+          <div class="service-period">per dataset</div>
+          <ul class="service-features" style="margin-top:14px">
+            <li>Full analysis &amp; interpretation</li>
+            <li>Formatted results tables</li>
+            <li>Written discussion section</li>
+          </ul>
+          <button class="btn btn-outline btn-full" style="margin-top:20px" onclick="showPage('contact')">Enquire</button>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📄</div>
+          <h3 class="t-h3">Assignment Help</h3>
+          <p class="t-small" style="margin-top:8px;margin-bottom:16px">Structured guidance on coursework, case studies, and assignments in economics, finance, and accounting.</p>
+          <div class="service-price">K200+</div>
+          <div class="service-period">per assignment</div>
+          <ul class="service-features" style="margin-top:14px">
+            <li>Explained step-by-step</li>
+            <li>Calculations shown clearly</li>
+            <li>Harvard or APA referencing</li>
+          </ul>
+          <button class="btn btn-outline btn-full" style="margin-top:20px" onclick="showPage('contact')">Enquire</button>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🖥️</div>
+          <h3 class="t-h3">Training &amp; Workshops</h3>
+          <p class="t-small" style="margin-top:8px;margin-bottom:16px">Group training sessions on STATA, research methods, data analysis, and professional development topics.</p>
+          <div class="service-price">K1,500+</div>
+          <div class="service-period">per group session</div>
+          <ul class="service-features" style="margin-top:14px">
+            <li>Up to 20 participants</li>
+            <li>Custom curriculum</li>
+            <li>Certificate of participation</li>
+          </ul>
+          <button class="btn btn-outline btn-full" style="margin-top:20px" onclick="showPage('contact')">Enquire</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: COURSES
+══════════════════════════════════════════════════ -->
+<div id="page-courses" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="t-label">Free Learning</div>
+        <h1 class="t-h1">Course Catalogue</h1>
+        <div class="gold-rule"></div>
+        <p class="t-body">48 structured courses across Economics, Business, and Accounting — all free, all built for Zambian students.</p>
+      </div>
+      <div class="course-filters fade-up">
+        <button class="filter-btn active" onclick="filterCourses('all',this)">All Courses</button>
+        <button class="filter-btn" onclick="filterCourses('economics',this)">📊 Economics</button>
+        <button class="filter-btn" onclick="filterCourses('business',this)">💼 Business</button>
+        <button class="filter-btn" onclick="filterCourses('accounting',this)">🧮 Accounting</button>
+        <button class="filter-btn" onclick="filterCourses('statistics',this)">📐 Statistics</button>
+        <button class="filter-btn" onclick="filterCourses('research',this)">🔬 Research</button>
+      </div>
+      <div class="grid-3 fade-up" id="coursesGrid">
+
+        <div class="course-card" data-cat="economics research">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#1a3a7a,#2A6FDB)">📈</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-info">Economics</span><span class="badge badge-gold">Advanced</span></div>
+            <div class="course-title">ARDL Bounds Testing &amp; ECM in Zambia</div>
+            <div class="course-instructor">👨‍🏫 Romance Chiingu · 8 lessons · 6h 30m</div>
+            <div class="course-footer"><div class="course-rating">⭐ 4.9 · 1,204 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+        <div class="course-card" data-cat="statistics">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#1a2a4a,#7B5EA7)">📐</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-warn">Statistics</span><span class="badge badge-gold">Intermediate</span></div>
+            <div class="course-title">Statistics for Economists: Full Course</div>
+            <div class="course-instructor">👨‍🏫 Romance Chiingu · 12 lessons · 10h</div>
+            <div class="course-footer"><div class="course-rating">⭐ 4.8 · 892 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+        <div class="course-card" data-cat="economics">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#0d2a3a,#1CA89A)">🌍</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-info">Economics</span><span class="badge badge-gold">Intermediate</span></div>
+            <div class="course-title">Macroeconomics: Money, Trade &amp; Growth</div>
+            <div class="course-instructor">👩‍🏫 Dr. Jane Phiri · 10 lessons · 8h</div>
+            <div class="course-footer"><div class="course-rating">⭐ 4.7 · 654 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+        <div class="course-card" data-cat="business">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#1a2a1a,#1CA89A)">💼</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-success">Business</span><span class="badge badge-gold">Intermediate</span></div>
+            <div class="course-title">Corporate Finance: WACC, NPV &amp; Capital Structure</div>
+            <div class="course-instructor">👨‍🏫 Romance Chiingu · 7 lessons · 5h</div>
+            <div class="course-footer"><div class="course-rating">⭐ 4.9 · 520 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+        <div class="course-card" data-cat="accounting">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#2a1a3a,#7B5EA7)">🧮</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-warn">Accounting</span><span class="badge badge-gold">Intermediate</span></div>
+            <div class="course-title">Cost &amp; Management Accounting: EOQ, Costing &amp; Variances</div>
+            <div class="course-instructor">👨‍🏫 Romance Chiingu · 9 lessons · 6h</div>
+            <div class="course-footer"><div class="course-rating">⭐ 4.8 · 480 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+        <div class="course-card" data-cat="accounting">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#2a1a1a,#D44B4B)">📑</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-warn">Accounting</span><span class="badge badge-gold">Advanced</span></div>
+            <div class="course-title">Zambian Taxation: Corporate, Individual &amp; Mining Tax</div>
+            <div class="course-instructor">👩‍🏫 Mrs. Charity Zulu · 8 lessons · 7h</div>
+            <div class="course-footer"><div class="course-rating">⭐ 5.0 · 390 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+        <div class="course-card" data-cat="research">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#1a1a2a,#E87B2A)">🔬</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-info">Research</span><span class="badge badge-gold">Advanced</span></div>
+            <div class="course-title">Quantitative Research Methods (MRM 802) — Full Guide</div>
+            <div class="course-instructor">👨‍🏫 Romance Chiingu · 14 lessons · 12h</div>
+            <div class="course-footer"><div class="course-rating">⭐ 4.9 · 720 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+        <div class="course-card" data-cat="statistics">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#1a2a3a,#2AB8D4)">📊</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-warn">Statistics</span><span class="badge badge-gold">Beginner</span></div>
+            <div class="course-title">Hypothesis Testing &amp; Regression Analysis</div>
+            <div class="course-instructor">👨‍🏫 Romance Chiingu · 6 lessons · 4h</div>
+            <div class="course-footer"><div class="course-rating">⭐ 4.7 · 610 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+        <div class="course-card" data-cat="business">
+          <div class="course-thumb" style="background:linear-gradient(135deg,#0d2a2a,#2ECC8E)">🏢</div>
+          <div class="course-body">
+            <div class="course-meta"><span class="badge badge-success">Business</span><span class="badge badge-gold">Beginner</span></div>
+            <div class="course-title">Business Plan Development for Zambian SMEs</div>
+            <div class="course-instructor">👨‍🏫 Romance Chiingu · 5 lessons · 4h</div>
+            <div class="course-footer"><div class="course-rating">⭐ 4.8 · 445 enrolled</div><div class="course-free">Free</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: TUTORING / BOOKING
+══════════════════════════════════════════════════ -->
+<div id="page-tutoring" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="t-label">1-on-1 Sessions</div>
+        <h1 class="t-h1">Book a Tutoring Session</h1>
+        <div class="gold-rule"></div>
+        <p class="t-body">Expert, personalised tutoring via Google Meet. Sessions delivered with custom materials and follow-up notes.</p>
+      </div>
+
+      <div class="grid-2 fade-up" style="gap:48px;align-items:start">
+        <!-- Tutors -->
+        <div>
+          <h2 class="t-h2" style="margin-bottom:24px">Available Tutors</h2>
+          <div style="display:flex;flex-direction:column;gap:20px">
+
+            <div class="tutor-card">
+              <div class="tutor-header">
+                <div class="tutor-avatar">RC</div>
+                <div>
+                  <div class="tutor-name">Romance Chiingu</div>
+                  <div class="tutor-title">Economist · Clearview Business Solutions</div>
+                  <div><span class="avail-dot"></span><span style="font-size:.78rem;color:var(--success);font-weight:600">Available this week</span></div>
+                </div>
+              </div>
+              <div class="tutor-subjects">
+                <span class="tutor-subject-tag">Economics</span>
+                <span class="tutor-subject-tag">Statistics</span>
+                <span class="tutor-subject-tag">STATA</span>
+                <span class="tutor-subject-tag">Research Methods</span>
+                <span class="tutor-subject-tag">Business</span>
+              </div>
+              <div class="tutor-stats">
+                <div><div class="tutor-stat-val">4.9★</div><div class="tutor-stat-lbl">Rating</div></div>
+                <div><div class="tutor-stat-val">120+</div><div class="tutor-stat-lbl">Sessions</div></div>
+                <div><div class="tutor-stat-val">K150</div><div class="tutor-stat-lbl">Per hour</div></div>
+              </div>
+              <button class="btn btn-gold btn-full" onclick="document.getElementById('bookingForm').scrollIntoView({behavior:'smooth'})">Book Now</button>
+            </div>
+
+            <div class="tutor-card">
+              <div class="tutor-header">
+                <div class="tutor-avatar" style="background:linear-gradient(135deg,#1a5a7a,#2A6FDB)">JP</div>
+                <div>
+                  <div class="tutor-name">Dr. Jane Phiri</div>
+                  <div class="tutor-title">Senior Lecturer — Economics</div>
+                  <div><span class="avail-dot"></span><span style="font-size:.78rem;color:var(--success);font-weight:600">Available this week</span></div>
+                </div>
+              </div>
+              <div class="tutor-subjects">
+                <span class="tutor-subject-tag">Macroeconomics</span>
+                <span class="tutor-subject-tag">Development Econ</span>
+                <span class="tutor-subject-tag">Monetary Policy</span>
+              </div>
+              <div class="tutor-stats">
+                <div><div class="tutor-stat-val">4.8★</div><div class="tutor-stat-lbl">Rating</div></div>
+                <div><div class="tutor-stat-val">300+</div><div class="tutor-stat-lbl">Sessions</div></div>
+                <div><div class="tutor-stat-val">K200</div><div class="tutor-stat-lbl">Per hour</div></div>
+              </div>
+              <button class="btn btn-outline btn-full" onclick="document.getElementById('bookingForm').scrollIntoView({behavior:'smooth'})">Book Now</button>
+            </div>
+
+            <div class="tutor-card">
+              <div class="tutor-header">
+                <div class="tutor-avatar" style="background:linear-gradient(135deg,#3a1a5a,#7B5EA7)">CZ</div>
+                <div>
+                  <div class="tutor-name">Mrs. Charity Zulu</div>
+                  <div class="tutor-title">ZRA Background · Tax Specialist</div>
+                  <div><span class="avail-dot"></span><span style="font-size:.78rem;color:var(--success);font-weight:600">Available this week</span></div>
+                </div>
+              </div>
+              <div class="tutor-subjects">
+                <span class="tutor-subject-tag">Tax Law</span>
+                <span class="tutor-subject-tag">Accounting</span>
+                <span class="tutor-subject-tag">Auditing</span>
+              </div>
+              <div class="tutor-stats">
+                <div><div class="tutor-stat-val">5.0★</div><div class="tutor-stat-lbl">Rating</div></div>
+                <div><div class="tutor-stat-val">60+</div><div class="tutor-stat-lbl">Sessions</div></div>
+                <div><div class="tutor-stat-val">K220</div><div class="tutor-stat-lbl">Per hour</div></div>
+              </div>
+              <button class="btn btn-outline btn-full" onclick="document.getElementById('bookingForm').scrollIntoView({behavior:'smooth'})">Book Now</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Booking Form -->
+        <div id="bookingForm" class="booking-form">
+          <div class="t-label" style="margin-bottom:8px">Step 1 of 1</div>
+          <h2 class="t-h2" style="margin-bottom:8px">Request a Session</h2>
+          <p class="t-small" style="margin-bottom:28px">Fill in your details below. We will confirm your session within 24 hours via WhatsApp or email.</p>
+
+          <div class="form-group">
+            <label class="form-label">Your Full Name</label>
+            <input class="form-input" type="text" placeholder="e.g. Precious Banda">
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp / Phone Number</label>
+            <input class="form-input" type="tel" placeholder="+260 97X XXX XXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" type="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Select Tutor</label>
+            <select class="form-input form-select">
+              <option>Romance Chiingu — Economics, Stats, Research (K150/hr)</option>
+              <option>Dr. Jane Phiri — Macroeconomics (K200/hr)</option>
+              <option>Mrs. Charity Zulu — Tax &amp; Accounting (K220/hr)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject / Topic</label>
+            <select class="form-input form-select">
+              <option>Economics — ARDL &amp; ECM</option>
+              <option>Economics — Macroeconomics</option>
+              <option>Statistics — Regression &amp; Hypothesis Testing</option>
+              <option>Research Methods (MRM 802)</option>
+              <option>Business — Corporate Finance</option>
+              <option>Accounting — Cost &amp; Management</option>
+              <option>Accounting — Taxation</option>
+              <option>Thesis / Research Support</option>
+              <option>Other (specify in notes)</option>
+            </select>
+          </div>
+          <div class="grid-2" style="gap:14px">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Preferred Date</label>
+              <input class="form-input" type="date">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Preferred Time</label>
+              <select class="form-input form-select">
+                <option>09:00</option><option>10:00</option><option>11:00</option>
+                <option>13:00</option><option>14:00</option><option>15:00</option>
+                <option>16:00</option><option>17:00</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:18px">
+            <label class="form-label">What do you need help with? (optional)</label>
+            <textarea class="form-input form-textarea" placeholder="e.g. I need help understanding ARDL bounds testing for my thesis. My F-statistic is significant but I don't understand the ECM coefficient..."></textarea>
+          </div>
+          <button class="btn btn-gold btn-full btn-lg" onclick="submitBooking()" style="margin-top:8px">📅 Send Booking Request</button>
+          <p class="t-small" style="margin-top:12px;text-align:center">You will receive a Google Meet link by email once confirmed. No payment upfront.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: LIBRARY
+══════════════════════════════════════════════════ -->
+<div id="page-library" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="t-label">142 Free Resources</div>
+        <h1 class="t-h1">Resource Library</h1>
+        <div class="gold-rule"></div>
+        <p class="t-body">Download PDFs, teaching guides, quiz packs, and research materials — no sign-up required. All free.</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid-4 fade-up" style="margin-bottom:48px">
+        <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:6px">📄</div><div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:var(--lib)">48</div><div class="t-small">PDF Guides</div></div>
+        <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:6px">🎥</div><div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:var(--econ)">36</div><div class="t-small">Video Lessons</div></div>
+        <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:6px">📝</div><div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:var(--acct)">22</div><div class="t-small">Quiz Packs</div></div>
+        <div class="card card-sm text-center"><div style="font-size:1.8rem;margin-bottom:6px">📰</div><div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:var(--biz)">36</div><div class="t-small">Articles</div></div>
+      </div>
+
+      <!-- Featured resource -->
+      <div class="card card-gold fade-up" style="margin-bottom:32px;background:linear-gradient(135deg,var(--navy-700),var(--navy-600))">
+        <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+          <div style="font-size:3rem">📋</div>
+          <div style="flex:1">
+            <div class="badge badge-gold" style="margin-bottom:8px">⭐ Most Downloaded</div>
+            <h3 class="t-h3" style="margin-bottom:6px">ARDL Bounds Testing Guide — Zambia Case Study</h3>
+            <p class="t-small" style="margin-bottom:12px">Complete step-by-step guide to ARDL bounds testing and error correction models using STATA. Includes interpretation, diagnostic tests, and how to write up your methodology chapter. Used by 2,400+ students.</p>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+              <span class="t-small">📄 PDF · 2.4 MB · By Romance Chiingu</span>
+              <span class="badge badge-success">Free Download</span>
+            </div>
+          </div>
+          <button class="btn btn-gold" onclick="downloadResource('ARDL Bounds Testing Guide')">📥 Download Free</button>
+        </div>
+      </div>
+
+      <!-- Resource list -->
+      <div style="display:flex;flex-direction:column;gap:12px" class="fade-up">
+
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(212,75,75,.12)">📄</div>
+          <div style="flex:1">
+            <div class="resource-title">Normal Distribution &amp; Probability Concepts</div>
+            <div class="resource-meta">PDF · 1.8 MB · By Romance Chiingu · Statistics</div>
+            <div style="display:flex;gap:8px"><span class="badge badge-success">Free</span><span class="badge badge-gold">Statistics</span></div>
+          </div>
+          <div class="resource-actions">
+            <button class="btn btn-gold btn-sm" onclick="downloadResource('Normal Distribution Guide')">📥 Download</button>
+          </div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(42,111,219,.12)">📄</div>
+          <div style="flex:1">
+            <div class="resource-title">Quantitative Research Methods — MRM 802 Full Guide</div>
+            <div class="resource-meta">PDF · 4.2 MB · By Romance Chiingu · Research</div>
+            <div style="display:flex;gap:8px"><span class="badge badge-success">Free</span><span class="badge badge-info">Research</span></div>
+          </div>
+          <div class="resource-actions">
+            <button class="btn btn-gold btn-sm" onclick="downloadResource('MRM 802 Guide')">📥 Download</button>
+          </div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(123,94,167,.12)">📄</div>
+          <div style="flex:1">
+            <div class="resource-title">Hypothesis Testing — Step by Step</div>
+            <div class="resource-meta">PDF · 1.2 MB · By Romance Chiingu · Statistics</div>
+            <div style="display:flex;gap:8px"><span class="badge badge-success">Free</span><span class="badge badge-gold">Statistics</span></div>
+          </div>
+          <div class="resource-actions">
+            <button class="btn btn-gold btn-sm" onclick="downloadResource('Hypothesis Testing Guide')">📥 Download</button>
+          </div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(232,123,42,.12)">📄</div>
+          <div style="flex:1">
+            <div class="resource-title">EOQ, Process Costing &amp; Inventory Valuation</div>
+            <div class="resource-meta">PDF · 2.1 MB · By Romance Chiingu · Accounting</div>
+            <div style="display:flex;gap:8px"><span class="badge badge-success">Free</span><span class="badge badge-warn">Accounting</span></div>
+          </div>
+          <div class="resource-actions">
+            <button class="btn btn-gold btn-sm" onclick="downloadResource('Inventory Valuation Guide')">📥 Download</button>
+          </div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(42,184,212,.12)">📄</div>
+          <div style="flex:1">
+            <div class="resource-title">Pearson Correlation &amp; R² Explained</div>
+            <div class="resource-meta">PDF · 980 KB · By Romance Chiingu · Statistics</div>
+            <div style="display:flex;gap:8px"><span class="badge badge-success">Free</span><span class="badge badge-gold">Statistics</span></div>
+          </div>
+          <div class="resource-actions">
+            <button class="btn btn-gold btn-sm" onclick="downloadResource('Pearson Correlation Guide')">📥 Download</button>
+          </div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(46,204,142,.12)">📝</div>
+          <div style="flex:1">
+            <div class="resource-title">Corporate Finance Quiz — WACC &amp; NPV Practice Questions</div>
+            <div class="resource-meta">Quiz Pack · 15 questions · By Romance Chiingu · Business</div>
+            <div style="display:flex;gap:8px"><span class="badge badge-success">Free</span><span class="badge badge-success">Quiz</span></div>
+          </div>
+          <div class="resource-actions">
+            <button class="btn btn-gold btn-sm" onclick="downloadResource('WACC NPV Quiz Pack')">📥 Download</button>
+          </div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(212,168,67,.12)">📄</div>
+          <div style="flex:1">
+            <div class="resource-title">Spearman Rank Correlation — Teaching Guide</div>
+            <div class="resource-meta">PDF · 1.5 MB · By Romance Chiingu · Statistics</div>
+            <div style="display:flex;gap:8px"><span class="badge badge-success">Free</span><span class="badge badge-gold">Statistics</span></div>
+          </div>
+          <div class="resource-actions">
+            <button class="btn btn-gold btn-sm" onclick="downloadResource('Spearman Correlation Guide')">📥 Download</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:40px" class="fade-up">
+        <p class="t-body" style="margin-bottom:16px">Need a specific resource not listed here?</p>
+        <button class="btn btn-outline" onclick="showPage('contact')">Request a Resource</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: BLOG / COMMUNITY
+══════════════════════════════════════════════════ -->
+<div id="page-blog" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="t-label">Community &amp; Blog</div>
+        <h1 class="t-h1">Articles, Tips &amp; Discussions</h1>
+        <div class="gold-rule"></div>
+        <p class="t-body">Academic insights, study tips, career advice and economic commentary — written for Zambian students by a Zambian student.</p>
+      </div>
+      <div class="grid-3 fade-up">
+
+        <div class="blog-card">
+          <div class="blog-thumb">📈</div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="badge badge-info">Economics</span><span class="badge badge-gold">Popular</span></div>
+            <div class="blog-title">How to Interpret a Negative ECM Coefficient in Your ARDL Model</div>
+            <div class="blog-excerpt">If your ECM coefficient is -0.42, your system corrects 42% of disequilibrium per period. Here's exactly how to write this up in your thesis discussion chapter...</div>
+            <div class="blog-footer">
+              <div class="blog-author"><div class="blog-author-av">RC</div><div><div style="font-size:.82rem;font-weight:600">Romance Chiingu</div><div class="t-small">June 10, 2025</div></div></div>
+              <span class="t-small">8 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-thumb">💼</div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="badge badge-success">Business</span></div>
+            <div class="blog-title">5 Things Zambian SMEs Must Fix Before Applying for CDF Funding</div>
+            <div class="blog-excerpt">Most CDF applications fail not because the business is bad, but because the proposal is weak. Here are the five things I fix for every client before submission...</div>
+            <div class="blog-footer">
+              <div class="blog-author"><div class="blog-author-av">RC</div><div><div style="font-size:.82rem;font-weight:600">Romance Chiingu</div><div class="t-small">May 28, 2025</div></div></div>
+              <span class="t-small">6 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-thumb">🎓</div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="badge badge-warn">Research</span></div>
+            <div class="blog-title">10 Mistakes Students Make in Their Thesis Defence (and How to Avoid Them)</div>
+            <div class="blog-excerpt">After attending and supporting dozens of thesis defences at NIPA, these are the ten mistakes I see most often — and exactly how to prepare so you don't make them...</div>
+            <div class="blog-footer">
+              <div class="blog-author"><div class="blog-author-av">RC</div><div><div style="font-size:.82rem;font-weight:600">Romance Chiingu</div><div class="t-small">May 14, 2025</div></div></div>
+              <span class="t-small">10 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-thumb">📊</div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="badge badge-info">Statistics</span></div>
+            <div class="blog-title">When to Use Pearson vs Spearman Correlation — A Simple Guide</div>
+            <div class="blog-excerpt">Students constantly confuse these two. The rule is simple: if your data is normally distributed, use Pearson. If not, use Spearman. Here's how to check...</div>
+            <div class="blog-footer">
+              <div class="blog-author"><div class="blog-author-av">RC</div><div><div style="font-size:.82rem;font-weight:600">Romance Chiingu</div><div class="t-small">Apr 22, 2025</div></div></div>
+              <span class="t-small">5 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-thumb">🏦</div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="badge badge-info">Economics</span></div>
+            <div class="blog-title">What the Kwacha Depreciation Means for Zambian Students and Businesses</div>
+            <div class="blog-excerpt">The ZMW/USD rate affects everything from your university fees to the price of maize. Here's a simple economic breakdown of what is happening and why...</div>
+            <div class="blog-footer">
+              <div class="blog-author"><div class="blog-author-av">RC</div><div><div style="font-size:.82rem;font-weight:600">Romance Chiingu</div><div class="t-small">Apr 8, 2025</div></div></div>
+              <span class="t-small">7 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <div class="blog-thumb">🚀</div>
+          <div class="blog-body">
+            <div class="blog-tags"><span class="badge badge-gold">Career</span></div>
+            <div class="blog-title">How to Write a CV That Gets You Noticed in Zambia's Job Market in 2025</div>
+            <div class="blog-excerpt">Most Zambian CVs look the same. Here's how to differentiate yours — formatting, skills section, and exactly what hiring managers at BOZ and ZRA look for...</div>
+            <div class="blog-footer">
+              <div class="blog-author"><div class="blog-author-av">RC</div><div><div style="font-size:.82rem;font-weight:600">Romance Chiingu</div><div class="t-small">Mar 30, 2025</div></div></div>
+              <span class="t-small">9 min read</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: CAREER
+══════════════════════════════════════════════════ -->
+<div id="page-career" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="t-label">Your Next Step</div>
+        <h1 class="t-h1">Career Center</h1>
+        <div class="gold-rule"></div>
+        <p class="t-body">Jobs, internships, career roadmaps, and CV building — all focused on the Zambian market.</p>
+      </div>
+
+      <div class="grid-2 fade-up" style="gap:48px;align-items:start">
+        <div>
+          <h2 class="t-h2" style="margin-bottom:24px">Live Job Board</h2>
+          <div style="display:flex;flex-direction:column;gap:16px">
+
+            <div class="job-card hot">
+              <div class="job-header">
+                <div class="job-logo">BOZ</div>
+                <div><div class="job-title">Graduate Economist</div><div class="job-company">Bank of Zambia · Lusaka</div></div>
+                <span class="badge badge-warn" style="margin-left:auto">🔥 Hot</span>
+              </div>
+              <div class="job-tags"><span class="badge badge-info">Full-time</span><span class="badge badge-gold">Economics</span><span class="badge badge-success">Entry Level</span></div>
+              <div class="job-deadline">⏰ Closes Jul 15, 2025</div>
+              <button class="btn btn-gold btn-sm" style="margin-top:14px;width:100%" onclick="showToast('Redirecting to BOZ careers page...')">Apply Now</button>
+            </div>
+
+            <div class="job-card">
+              <div class="job-header">
+                <div class="job-logo">ZSA</div>
+                <div><div class="job-title">Research Analyst</div><div class="job-company">Zambia Statistics Agency · Lusaka</div></div>
+              </div>
+              <div class="job-tags"><span class="badge badge-info">Full-time</span><span class="badge badge-gold">Research</span></div>
+              <div class="job-deadline">⏰ Closes Jul 20, 2025</div>
+              <button class="btn btn-outline btn-sm" style="margin-top:14px;width:100%" onclick="showToast('Redirecting to ZSA careers...')">Apply Now</button>
+            </div>
+
+            <div class="job-card hot">
+              <div class="job-header">
+                <div class="job-logo">ZAN</div>
+                <div><div class="job-title">Business Development Officer</div><div class="job-company">ZANACO · Lusaka / Ndola</div></div>
+                <span class="badge badge-warn" style="margin-left:auto">🔥 Hot</span>
+              </div>
+              <div class="job-tags"><span class="badge badge-info">Full-time</span><span class="badge badge-gold">Business</span><span class="badge badge-success">Graduate</span></div>
+              <div class="job-deadline">⏰ Closes Jun 30, 2025</div>
+              <button class="btn btn-gold btn-sm" style="margin-top:14px;width:100%" onclick="showToast('Redirecting to ZANACO careers...')">Apply Now</button>
+            </div>
+
+            <div class="job-card">
+              <div class="job-header">
+                <div class="job-logo">ZRA</div>
+                <div><div class="job-title">Graduate Intern — Economics Research</div><div class="job-company">Zambia Revenue Authority · Lusaka</div></div>
+              </div>
+              <div class="job-tags"><span class="badge badge-success">Internship</span><span class="badge badge-gold">Paid · K3,000/mo</span></div>
+              <div class="job-deadline">⏰ Closes Jul 10, 2025</div>
+              <button class="btn btn-outline btn-sm" style="margin-top:14px;width:100%" onclick="showToast('Redirecting to ZRA careers...')">Apply Now</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div>
+          <h2 class="t-h2" style="margin-bottom:24px">Career Tools</h2>
+          <div style="display:flex;flex-direction:column;gap:16px">
+
+            <div class="card card-gold">
+              <div style="font-size:1.8rem;margin-bottom:12px">📄</div>
+              <h3 class="t-h3" style="margin-bottom:8px">CV Builder</h3>
+              <p class="t-body" style="margin-bottom:16px">Build a professional CV tailored to Zambian employers. Navy and gold design — the same professional look that gets noticed.</p>
+              <button class="btn btn-gold btn-full" onclick="showToast('CV Builder launching soon!')">Build My CV</button>
+            </div>
+
+            <div class="card">
+              <div style="font-size:1.8rem;margin-bottom:12px">🗺️</div>
+              <h3 class="t-h3" style="margin-bottom:8px">Career Roadmaps</h3>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--navy-600);border-radius:var(--radius-sm);cursor:pointer" onclick="showToast('Roadmap: Data Economist')">
+                  <span>📊</span><span style="font-size:.9rem;font-weight:600">Become a Data Economist</span>
+                  <span style="margin-left:auto;color:var(--white-600);font-size:.75rem">6 steps →</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--navy-600);border-radius:var(--radius-sm);cursor:pointer" onclick="showToast('Roadmap: SME Consulting')">
+                  <span>🏢</span><span style="font-size:.9rem;font-weight:600">Start an SME Consulting Firm</span>
+                  <span style="margin-left:auto;color:var(--white-600);font-size:.75rem">5 steps →</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--navy-600);border-radius:var(--radius-sm);cursor:pointer" onclick="showToast('Roadmap: ZICA Accountant')">
+                  <span>🧮</span><span style="font-size:.9rem;font-weight:600">Become a ZICA Accountant</span>
+                  <span style="margin-left:auto;color:var(--white-600);font-size:.75rem">7 steps →</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--navy-600);border-radius:var(--radius-sm);cursor:pointer" onclick="showToast('Roadmap: Policy Analyst')">
+                  <span>🏛️</span><span style="font-size:.9rem;font-weight:600">Government Policy Analyst</span>
+                  <span style="margin-left:auto;color:var(--white-600);font-size:.75rem">5 steps →</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div style="font-size:1.8rem;margin-bottom:12px">🎯</div>
+              <h3 class="t-h3" style="margin-bottom:8px">1-on-1 Career Coaching</h3>
+              <p class="t-body" style="margin-bottom:16px">Get personalised career guidance from Romance Chiingu — CV review, interview preparation, and career planning.</p>
+              <button class="btn btn-outline btn-full" onclick="showPage('tutoring')">Book Career Session — K150/hr</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="t-label">Get in Touch</div>
+        <h1 class="t-h1">Contact Romance Chiingu</h1>
+        <div class="gold-rule"></div>
+        <p class="t-body">Whether you need tutoring, consulting, a resource, or just have a question — send a message and I will respond within 24 hours.</p>
+      </div>
+
+      <div class="contact-grid fade-up">
+        <div class="contact-info-card">
+          <div class="t-label" style="margin-bottom:20px">Direct Contact</div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📱</div>
+            <div><div class="contact-item-label">WhatsApp / Phone</div><div class="contact-item-val">+260 97X XXX XXX</div><div class="contact-item-sub">Available Mon–Sat · 08:00–18:00 CAT</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div><div class="contact-item-label">Email</div><div class="contact-item-val">romance@clearviewbiz.co.zm</div><div class="contact-item-sub">Response within 24 hours</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div><div class="contact-item-label">Location</div><div class="contact-item-val">Lusaka, Zambia</div><div class="contact-item-sub">NIPA Campus · Remote sessions available</div></div>
+          </div>
+          <div class="contact-item" style="margin-bottom:0">
+            <div class="contact-item-icon">🏢</div>
+            <div><div class="contact-item-label">Business</div><div class="contact-item-val">Clearview Business Solutions</div><div class="contact-item-sub">Data Analysis · SME Consulting</div></div>
+          </div>
+          <div style="margin-top:28px;padding-top:24px;border-top:1px solid var(--navy-500)">
+            <div class="t-label" style="margin-bottom:12px">Quick Actions</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <button class="btn btn-gold btn-full" onclick="showPage('tutoring')">📅 Book a Tutoring Session</button>
+              <button class="btn btn-ghost btn-full" onclick="showPage('library')">📥 Download Free Resources</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-form">
+          <div class="t-label" style="margin-bottom:8px">Send a Message</div>
+          <h2 class="t-h2" style="margin-bottom:24px">How can I help you?</h2>
+          <div class="form-group">
+            <label class="form-label">Your Full Name</label>
+            <input class="form-input" type="text" placeholder="e.g. Precious Banda" id="contactName">
+          </div>
+          <div class="grid-2" style="gap:14px">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Email Address</label>
+              <input class="form-input" type="email" placeholder="you@example.com" id="contactEmail">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">WhatsApp Number</label>
+              <input class="form-input" type="tel" placeholder="+260 97X XXX XXX" id="contactPhone">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:18px">
+            <label class="form-label">What do you need help with?</label>
+            <select class="form-input form-select" id="contactType">
+              <option>Academic Tutoring</option>
+              <option>Thesis / Research Support</option>
+              <option>Data Analysis (STATA / SPSS)</option>
+              <option>SME Consulting</option>
+              <option>Assignment Help</option>
+              <option>Course Enquiry</option>
+              <option>Resource Request</option>
+              <option>Partnership / Collaboration</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Message</label>
+            <textarea class="form-input form-textarea" id="contactMessage" placeholder="Tell me more about what you need. The more detail you give, the better I can help you..."></textarea>
+          </div>
+          <button class="btn btn-gold btn-full btn-lg" onclick="submitContact()">Send Message ✉️</button>
+          <p class="t-small" style="margin-top:12px;text-align:center">I respond to all messages within 24 hours, usually much sooner.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PAGE: ADMIN
+══════════════════════════════════════════════════ -->
+<div id="page-admin" class="page">
+  <div id="adminLogin">
+    <div class="admin-login">
+      <div class="admin-login-card">
+        <div style="text-align:center;margin-bottom:32px">
+          <div class="nav-logo-mark" style="width:52px;height:52px;border-radius:12px;font-size:18px;margin:0 auto 16px">RH</div>
+          <div class="t-label" style="margin-bottom:6px">Admin Access</div>
+          <h2 class="t-h2">Sign In</h2>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="admin@romantichub.app" id="adminEmail">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" placeholder="••••••••" id="adminPass">
+        </div>
+        <button class="btn btn-gold btn-full" onclick="adminLogin()" style="margin-top:8px">Sign In to Dashboard</button>
+        <p class="t-small" style="text-align:center;margin-top:16px">
+          <a href="#" onclick="showPage('home')" style="color:var(--gold-500)">← Back to website</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="adminDash" class="hidden">
+    <section class="section-sm">
+      <div class="container">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px">
+          <div>
+            <div class="t-label" style="margin-bottom:4px">Admin Dashboard</div>
+            <h1 class="t-h1">Welcome back, Romance</h1>
+          </div>
+          <button class="btn btn-ghost" onclick="adminLogout()">Sign Out</button>
+        </div>
+
+        <div class="admin-grid">
+          <div class="admin-kpi"><div class="admin-kpi-val" style="color:var(--gold-500)">1,842</div><div class="admin-kpi-label">Total Users</div><div class="admin-kpi-trend">↑ +12% this month</div></div>
+          <div class="admin-kpi"><div class="admin-kpi-val" style="color:var(--econ)">34</div><div class="admin-kpi-label">Active Sessions</div><div class="admin-kpi-trend">↑ +5 today</div></div>
+          <div class="admin-kpi"><div class="admin-kpi-val" style="color:var(--success)">142</div><div class="admin-kpi-label">Resources</div><div class="admin-kpi-trend">↑ +8 this week</div></div>
+          <div class="admin-kpi"><div class="admin-kpi-val" style="color:var(--tutor)">17</div><div class="admin-kpi-label">Bookings Today</div><div class="admin-kpi-trend">↑ +4 vs yesterday</div></div>
+          <div class="admin-kpi"><div class="admin-kpi-val" style="color:var(--biz)">9,450</div><div class="admin-kpi-label">Revenue (ZMW)</div><div class="admin-kpi-trend">↑ +18% this month</div></div>
+          <div class="admin-kpi"><div class="admin-kpi-val" style="color:var(--lib)">2,841</div><div class="admin-kpi-label">Downloads</div><div class="admin-kpi-trend">↑ +342 this week</div></div>
+        </div>
+
+        <div class="grid-2" style="margin-top:32px;gap:24px">
+          <div class="card">
+            <h3 class="t-h3" style="margin-bottom:16px">Recent Bookings</h3>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--navy-500)"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold-700),var(--gold-500));display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--navy-800);flex-shrink:0">PB</div><div style="flex:1"><div style="font-size:.9rem;font-weight:600">Precious Banda</div><div class="t-small">Thesis Support · Tomorrow 10:00</div></div><span class="badge badge-success">Confirmed</span></div>
+              <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--navy-500)"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1a3a7a,#2A6FDB);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:white;flex-shrink:0">RK</div><div style="flex:1"><div style="font-size:.9rem;font-weight:600">Romano Kalinda</div><div class="t-small">Research Methods · Wed 14:00</div></div><span class="badge badge-warn">Pending</span></div>
+              <div style="display:flex;align-items:center;gap:12px"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3a1a5a,#7B5EA7);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:white;flex-shrink:0">SC</div><div style="flex:1"><div style="font-size:.9rem;font-weight:600">Salome Chilufya</div><div class="t-small">Statistics · Thu 11:00</div></div><span class="badge badge-success">Confirmed</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="t-h3" style="margin-bottom:16px">Quick Admin Actions</h3>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <button class="btn btn-ghost btn-full" onclick="showToast('Upload resource form opening...')">📤 Upload New Resource</button>
+              <button class="btn btn-ghost btn-full" onclick="showToast('Add course form opening...')">➕ Add New Course</button>
+              <button class="btn btn-ghost btn-full" onclick="showToast('Blog editor opening...')">✏️ Write Blog Post</button>
+              <button class="btn btn-ghost btn-full" onclick="showToast('Job listings editor opening...')">💼 Post New Job</button>
+              <button class="btn btn-ghost btn-full" onclick="showToast('User management opening...')">👥 Manage Users</button>
+              <button class="btn btn-ghost btn-full" onclick="showToast('Analytics dashboard opening...')">📊 Full Analytics</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✅</span>
+  <span class="toast-text" id="toastText"></span>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════ -->
+<script>
+/* ── Page Navigation ─────────────────────────────────────── */
+function showPage(name) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Show target
+  const target = document.getElementById('page-' + name);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  // Update nav active state
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navLink = document.getElementById('nav-' + name);
+  if (navLink) navLink.classList.add('active');
+  // Trigger scroll animations for new page
+  setTimeout(observeAnimations, 100);
+  return false;
+}
+
+/* ── Mobile Menu ─────────────────────────────────────────── */
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('open');
+}
+
+/* ── Course Filter ───────────────────────────────────────── */
+function filterCourses(cat, btn) {
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Filter cards
+  document.querySelectorAll('.course-card').forEach(card => {
+    const cats = card.dataset.cat || '';
+    if (cat === 'all' || cats.includes(cat)) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+/* ── Toast ───────────────────────────────────────────────── */
+let toastTimer;
+function showToast(msg, icon = '✅') {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastText').textContent = msg;
+  document.getElementById('toastIcon').textContent = icon;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+/* ── Form Submissions ────────────────────────────────────── */
+function submitBooking() {
+  showToast('Booking request sent! Romance will confirm within 24 hours. 🎉');
+}
+function submitContact() {
+  const name = document.getElementById('contactName').value;
+  if (!name) { showToast('Please enter your name first.', '⚠️'); return; }
+  showToast(`Thanks ${name.split(' ')[0]}! Message received. I'll reply within 24 hours.`);
+}
+
+/* ── Resource Download ───────────────────────────────────── */
+function downloadResource(name) {
+  showToast(`"${name}" download starting... ✅`);
+}
+
+/* ── Admin Login ─────────────────────────────────────────── */
+function adminLogin() {
+  const email = document.getElementById('adminEmail').value;
+  const pass  = document.getElementById('adminPass').value;
+  if (!email || !pass) { showToast('Enter your email and password.', '⚠️'); return; }
+  // Simple demo login — in production this connects to Firebase Auth
+  if (email.includes('@') && pass.length >= 6) {
+    document.getElementById('adminLogin').classList.add('hidden');
+    document.getElementById('adminDash').classList.remove('hidden');
+    showToast('Welcome back, Romance! 👋');
+  } else {
+    showToast('Invalid credentials. Please try again.', '❌');
+  }
+}
+function adminLogout() {
+  document.getElementById('adminDash').classList.add('hidden');
+  document.getElementById('adminLogin').classList.remove('hidden');
+  showPage('home');
+}
+
+/* ── Scroll Animations ───────────────────────────────────── */
+function observeAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.page.active .fade-up:not(.visible)').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+/* ── Init ────────────────────────────────────────────────── */
+window.addEventListener('load', () => {
+  observeAnimations();
+  // Set home nav as active
+  const homeNav = document.getElementById('nav-home');
+  if (homeNav) homeNav.classList.add('active');
+});
+
+// Re-observe on scroll
+window.addEventListener('scroll', () => {
+  document.querySelectorAll('.page.active .fade-up:not(.visible)').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.9) el.classList.add('visible');
+  });
+});
+</script>
+
+<!-- ══════════════════════════════════════════════════
+     STICKY MOBILE ACTION BAR (shows on small screens)
+══════════════════════════════════════════════════ -->
+<div id="mobileBar" style="
+  display:none;
+  position:fixed; bottom:0; left:0; right:0; z-index:999;
+  background:var(--navy-900);
+  border-top:1px solid var(--navy-500);
+  padding:10px 12px 20px;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+">
+  <button onclick="showPage('library')" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--navy-700);border:1px solid var(--navy-500);border-radius:var(--radius-md);padding:9px 4px;cursor:pointer;color:var(--white-200);font-family:inherit">
+    <span style="font-size:1.2rem">📥</span>
+    <span style="font-size:.62rem;font-weight:600;color:var(--lib)">Library</span>
+  </button>
+  <button onclick="showPage('tutoring')" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--gold-500);border:none;border-radius:var(--radius-md);padding:9px 4px;cursor:pointer;font-family:inherit">
+    <span style="font-size:1.2rem">📅</span>
+    <span style="font-size:.62rem;font-weight:700;color:var(--navy-800)">Book Tutor</span>
+  </button>
+  <button onclick="showPage('courses')" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--navy-700);border:1px solid var(--navy-500);border-radius:var(--radius-md);padding:9px 4px;cursor:pointer;color:var(--white-200);font-family:inherit">
+    <span style="font-size:1.2rem">🎓</span>
+    <span style="font-size:.62rem;font-weight:600;color:var(--econ)">Courses</span>
+  </button>
+  <button onclick="showPage('contact')" style="display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--navy-700);border:1px solid var(--navy-500);border-radius:var(--radius-md);padding:9px 4px;cursor:pointer;color:var(--white-200);font-family:inherit">
+    <span style="font-size:1.2rem">💼</span>
+    <span style="font-size:.62rem;font-weight:600;color:var(--biz)">Hire Me</span>
+  </button>
+</div>
+
+<style>
+@media (max-width: 768px) {
+  #mobileBar { display: grid !important; }
+  body { padding-bottom: 90px; }
+}
+</style>
+
+</body>
+</html>
